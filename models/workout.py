@@ -7,6 +7,8 @@ from app import db
 from models.base import BaseModel
 
 
+
+
 # create WorkoutModel that extends from Base and SQL class
 class WorkoutModel(db.Model, BaseModel):
   __tablename__ = "workouts"
@@ -17,7 +19,7 @@ class WorkoutModel(db.Model, BaseModel):
   #! warmup will be inherited from exercises, but for now will be created manually
   warmup = db.Column(db.Integer)
   #* DONE exercises will be inheited from exercise table but created manually for now
-  # exercise1 = db.Column(db.Integer, db.ForeignKey('exercises.id'), nullable=False)
+  # exercise1 = db.Column(db.Integer, db.ForeignKey('workout_exercises.exercise_id'), nullable=False)
   # exercise2 = db.Column(db.Integer, db.ForeignKey('exercises.id'), nullable=False)
   # exercise3 = db.Column(db.Integer, db.ForeignKey('exercises.id'), nullable=False)
   exercise4 = db.Column(db.Integer)
@@ -35,3 +37,6 @@ class WorkoutModel(db.Model, BaseModel):
   # is_favourite = db.Column(db.Boolean, nullable=False)
 #! Length will be inherited from exercises and calculated, input manually for now
   length_of_workout = db.Column(db.Integer)
+
+  # relationship to exercises
+  exercises = db.Relationship("WorkoutExerciseModel", back_populates="workout")

@@ -6,8 +6,8 @@
 from app import db
 from models.base import BaseModel
 #! may need to remove the import below 
-# from models.workout import WorkoutModel
 
+from models.workout_exercise import WorkoutExerciseModel
 
 # create ExerciseModel that extends from Base and SQL class
 
@@ -32,3 +32,6 @@ class ExerciseModel(db.Model, BaseModel):
   
   #! might need to add another table connecting workouts to exercises, but will leave to the end
   ## workouts = db.relationship('WorkoutModel', backref='workouts', cascade='all, delete')
+
+  # relationship to exercises
+  workouts = db.Relationship("WorkoutExerciseModel", back_populates="exercise")

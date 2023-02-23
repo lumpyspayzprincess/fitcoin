@@ -8,9 +8,16 @@ from app import app, db
 from models.exercise import ExerciseModel
 from models.target_area import TargetAreaModel
 from models.user import UserModel
+
+  ##increases fitcoin
 from models.workout import WorkoutModel
+
+  ##decreases fitcoin
 from models.user_spend import SpendModel
 from models.reward import RewardModel
+
+  ##junction tables
+from models.workout_exercise import WorkoutExerciseModel
 
 
 # SQLA was installed as a flask plugin, so the following code is need to avoid errors
@@ -60,6 +67,11 @@ with app.app_context():
       # workout = WorkoutModel(warmup=1,exercise1=exercise.id, exercise2=exercise2.id, exercise3=exercise3.id, cooldown=1, rest=1,length_of_workout=10)
       workout = WorkoutModel(user_id=user.id, warmup=1, cooldown=1, rest=1,length_of_workout=10)
       workout.save()
+
+      #! here I make a workout exercise
+      workout_exercise = WorkoutExerciseModel(workout_id=workout.id, exercise_id=exercise.id)
+      workout_exercise.save()
+
 
       reward = RewardModel(name="£10 Sephora voucher", description="£10 to use at Sephora, online and in stores.",fitcoin_cost=900)
       reward.save()
