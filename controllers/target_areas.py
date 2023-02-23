@@ -13,11 +13,14 @@ from http import HTTPStatus
 
 ## models
 from models.target_area import TargetAreaModel
+from models.exercise import ExerciseModel
 
 
 ## serialisers/schemas
 from serialisers.target_area import TargetAreaSchema
 target_area_schema = TargetAreaSchema()
+from serialisers.exercise import ExerciseSchema
+exercise_schema = ExerciseSchema()
 
 
 
@@ -26,7 +29,7 @@ router = Blueprint('target_areas', __name__)
 
 #  Requests
 
-## get all exercises
+## get all areas
 @router.route('/areas', methods=["GET"])
 def get_all_areas():
   areas = TargetAreaModel.query.all()
@@ -41,7 +44,7 @@ def get_all_areas():
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
-## get exercise by id
+## get area by id
 @router.route('/area/<int:area_id>', methods=["GET"])
 def get_one_area_by_id(area_id):
   area  = TargetAreaModel.query.get(area_id)
@@ -59,7 +62,7 @@ def get_one_area_by_id(area_id):
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
-## ADMIN ONLY -- create exercise
+## ADMIN ONLY -- create area
 @router.route('/areas', methods=["POST"])
 def admin_post_areas():
   new_area_dict = request.json
@@ -76,7 +79,7 @@ def admin_post_areas():
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
-## ADMIN ONLY -- update exercise
+## ADMIN ONLY -- update area
 @router.route('/area/<int:area_id>', methods=["PUT", "PATCH"])
 def admin_update_area(area_id):
     # remember to add the type of the query(param) and its name in the <> when
@@ -104,7 +107,7 @@ def admin_update_area(area_id):
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
-## ADMIN ONLY -- delete exercise
+## ADMIN ONLY -- delete area
 @router.route('/area/<int:area_id>', methods=["DELETE"])
 def admin_delete_area(area_id):
   area_to_be_deleted = TargetAreaModel.query.get(area_id)
@@ -121,6 +124,25 @@ def admin_delete_area(area_id):
   return '', HTTPStatus.NO_CONTENT
 
 
+#  - - EXERCISES - -
+
+
+#  Requests
+
+## get all exercises by area id
+@router.route('/area/<int:area_id>/exercises', methods=["GET"])
+def get_all_exercises_by_area(area_id):
+  exercises = ExerciseModel.query.filter_by(target_area_id = area_id)
+
+  if not exercises:
+    return { "message": "Exercises not found" }, HTTPStatus.NOT_FOUND
+  
+  try:
+    print(exercises)
+    return exercise_schema.jsonify(exercises, many=True), HTTPStatus.OK
+
+  except ValidationError as e:
+    return { "errors" : e.messages, "message": "Something went wrong" }
 
 
 
