@@ -9,117 +9,115 @@ from http import HTTPStatus
 
 
 #  Import files that I made
-from controllers.target_areas import get_one_area_by_id
 
 
 ## models
-from models.exercise_data import exercises_db
-from models.exercise import ExerciseModel
+from models.target_area import TargetAreaModel
 
 
 ## serialisers/schemas
-from serialisers.exercise import ExerciseSchema
-exercise_schema = ExerciseSchema()
+from serialisers.target_area import TargetAreaSchema
+target_area_schema = TargetAreaSchema()
 
 
 
 # Router
-router = Blueprint('exercises', __name__)
+router = Blueprint('target_areas', __name__)
 
 #  Requests
 
 ## get all exercises
-@router.route('/exercises', methods=["GET"])
-def get_all_exercises():
-  exercises = ExerciseModel.query.all()
+@router.route('/areas', methods=["GET"])
+def get_all_areas():
+  areas = TargetAreaModel.query.all()
 
-  if not exercises:
-    return { "message": "Exercises not found" }, HTTPStatus.NOT_FOUND
+  if not areas:
+    return { "message": "Areas not found" }, HTTPStatus.NOT_FOUND
   
   try:
-    print(exercises)
-    return exercise_schema.jsonify(exercises, many=True), HTTPStatus.OK
+    print(areas)
+    return target_area_schema.jsonify(areas, many=True), HTTPStatus.OK
 
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
 ## get exercise by id
-@router.route('/exercise/<int:exercise_id>', methods=["GET"])
-def get_one_exercise_by_id(exercise_id):
-  exercise  = ExerciseModel.query.get(exercise_id)
+@router.route('/area/<int:area_id>', methods=["GET"])
+def get_one_area_by_id(area_id):
+  area  = TargetAreaModel.query.get(area_id)
     # remember to add the type of the query(param) and its name in the <> when
     # defining a variable
     # and then then pass the id as an parameter in the function
   
-  if not exercise:
-    return { "message": "Exercise not found" }, HTTPStatus.NOT_FOUND
+  if not area:
+    return { "message": "Area not found" }, HTTPStatus.NOT_FOUND
   
   try:
-    print(exercise)
-    return exercise_schema.jsonify(exercise), HTTPStatus.OK
+    print(area)
+    return target_area_schema.jsonify(area), HTTPStatus.OK
 
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
 ## ADMIN ONLY -- create exercise
-@router.route('/exercises', methods=["POST"])
-def admin_post_exercise():
-  new_exercise_dict = request.json
+@router.route('/areas', methods=["POST"])
+def admin_post_areas():
+  new_area_dict = request.json
 
   try:
-    exercise = exercise_schema.load(new_exercise_dict)
+    area = target_area_schema.load(new_area_dict)
     # print(new_exercise_dict)
     # print(exercise)
-    exercise.save()
+    area.save()
     
     # nb - no need to add `many=True` as argument below, unlike in get requests
-    return exercise_schema.jsonify(exercise), HTTPStatus.OK
+    return target_area_schema.jsonify(area), HTTPStatus.OK
 
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
 ## ADMIN ONLY -- update exercise
-@router.route('/exercise/<int:exercise_id>', methods=["PUT", "PATCH"])
-def admin_update_exercise(exercise_id):
+@router.route('/area/<int:area_id>', methods=["PUT", "PATCH"])
+def admin_update_area(area_id):
     # remember to add the type of the query(param) and its name in the <> when
     # defining a variable
     # and then then pass the id as an parameter in the function
   updates_dict = request.json
-  existing_exercise = ExerciseModel.query.get(exercise_id)
+  existing_area = TargetAreaModel.query.get(area_id)
 
-  if not existing_exercise:
-    return { "message": "Exercise not found" }, HTTPStatus.NOT_FOUND
+  if not existing_area:
+    return { "message": "Area not found" }, HTTPStatus.NOT_FOUND
 
   try:
-    exercise = exercise_schema.load(
+    area = target_area_schema.load(
       updates_dict,
-      instance=existing_exercise,
+      instance=existing_area,
       partial=True
     )
     # print(new_exercise_dict)
     # print(exercise)
-    exercise.save()
+    area.save()
     
     # nb - no need to add `many=True` as argument below, unlike in get requests
-    return exercise_schema.jsonify(existing_exercise), HTTPStatus.OK
+    return target_area_schema.jsonify(existing_area), HTTPStatus.OK
 
   except ValidationError as e:
     return { "errors" : e.messages, "message": "Something went wrong" }
 
 ## ADMIN ONLY -- delete exercise
-@router.route('/exercise/<int:exercise_id>', methods=["DELETE"])
-def admin_delete_exercise(exercise_id):
-  exercise_to_be_deleted = ExerciseModel.query.get(exercise_id)
+@router.route('/area/<int:area_id>', methods=["DELETE"])
+def admin_delete_area(area_id):
+  area_to_be_deleted = TargetAreaModel.query.get(area_id)
   
-  if not exercise_to_be_deleted:
-    return { "message": "No exercise found" }, HTTPStatus.NOT_FOUND
+  if not area_to_be_deleted:
+    return { "message": "No area found" }, HTTPStatus.NOT_FOUND
 
   # #? need to sort out issue with below code! why won't it delete?
   # #! no need to try catch here, unless it's done without the if statement
-  exercise_to_be_deleted.delete_me()
+  area_to_be_deleted.delete_me()
   #   #! remember that we're using the methods on the BaseModel to interact with the database!
   #   #! remember to return something!!
-  print(exercise_to_be_deleted)
+  print(area_to_be_deleted)
   return '', HTTPStatus.NO_CONTENT
 
 
