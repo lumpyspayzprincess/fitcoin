@@ -2,6 +2,7 @@
   ## serialising involves marshmallow taking in complicated python objects
   ## and simplifying it to javascript opjects (json) that the web can read 
 from app import ma
+from marshmallow import fields 
 
 
 # imports from files/directories that I made
@@ -10,6 +11,9 @@ from models.target_area import TargetAreaModel
 # create serialiser (called schema in docs): python -> SQLA -> JSON
   ## https://marshmallow-sqlalchemy.readthedocs.io/en/latest/ 
 class TargetAreaSchema(ma.SQLAlchemyAutoSchema):
+
+  exercises = fields.Nested('ExerciseSchema', many=True)
+
   class Meta:
     model = TargetAreaModel
       ## below means that the model is returned when we deserialised
