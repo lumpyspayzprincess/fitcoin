@@ -115,13 +115,12 @@ def admin_delete_exercise(exercise_id):
 
   # #? need to sort out issue with below code! why won't it delete?
   # #! no need to try catch here, unless it's done without the if statement
-  exercise_to_be_deleted.delete()
+  exercise_to_be_deleted.delete_me()
   #   #! remember that we're using the methods on the BaseModel to interact with the database!
   #   #! remember to return something!!
+  print(exercise_to_be_deleted)
   return '', HTTPStatus.NO_CONTENT
-  #
-  # exercise_to_be_deleted.remove()
-  # return '', HTTPStatus.NO_CONTENT
+
 
 
 

@@ -22,3 +22,8 @@ class BaseModel:
     def remove(self):
       db.session.remove(self)
       db.session.commit()
+
+    ## seen an additional option to use delete instead of remove. delete the item, then commit the item
+    def delete_me(self):
+      db.session.delete(self)
+      db.session.commit() 
