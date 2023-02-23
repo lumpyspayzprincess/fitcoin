@@ -35,17 +35,17 @@ with app.app_context():
       target_area1.save()
 
       #! note to use args, kwargs in seeding for target_areas so there's a full table
-      exercise = ExerciseModel(name="plank")
-      # exercise = ExerciseModel(name="plank",target_area_id=target_area.id)
+      # exercise = ExerciseModel(name="plank")
+      exercise = ExerciseModel(name="plank",target_area_id=target_area.id)
       exercise.save()
 
-      # exercise2 = ExerciseModel(name="shoulder rotations",target_area_id=target_area1.id)
-      exercise2 = ExerciseModel(name="shoulder rotations")
-      exercise2.save()
+      # # exercise2 = ExerciseModel(name="shoulder rotations",target_area_id=target_area1.id)
+      # exercise2 = ExerciseModel(name="shoulder rotations")
+      # exercise2.save()
 
-      # exercise3 = ExerciseModel(name="crunches",target_area_id=target_area.id)
-      exercise3 = ExerciseModel(name="crunches")
-      exercise3.save()
+      # # exercise3 = ExerciseModel(name="crunches",target_area_id=target_area.id)
+      # exercise3 = ExerciseModel(name="crunches")
+      # exercise3.save()
 
       #* target_area -> exercises has been mapped successfully and we can see this in tableplus
 
@@ -58,7 +58,7 @@ with app.app_context():
       print(exercise.id)
       
       # workout = WorkoutModel(warmup=1,exercise1=exercise.id, exercise2=exercise2.id, exercise3=exercise3.id, cooldown=1, rest=1,length_of_workout=10)
-      workout = WorkoutModel(warmup=1, cooldown=1, rest=1,length_of_workout=10)
+      workout = WorkoutModel(user_id=user.id, warmup=1, cooldown=1, rest=1,length_of_workout=10)
       workout.save()
 
       reward = RewardModel(name="£10 Sephora voucher", description="£10 to use at Sephora, online and in stores.",fitcoin_cost=900)

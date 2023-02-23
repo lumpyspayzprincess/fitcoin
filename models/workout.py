@@ -13,7 +13,7 @@ class WorkoutModel(db.Model, BaseModel):
 
   ## id comes from the BaseModel
   #! user id will be added here, but it will be inherited as foreign key
-  # user_id = deb.Column(db.Integer, nullable=False)
+  user_id = db.Column(db.Integer,db.ForeignKey('users.id'), nullable=False)
   #! warmup will be inherited from exercises, but for now will be created manually
   warmup = db.Column(db.Integer)
   #* DONE exercises will be inheited from exercise table but created manually for now

@@ -5,7 +5,8 @@
 #  Import files that I made
 from app import db
 from models.base import BaseModel
-from models.workout import WorkoutModel
+#! may need to remove the import below 
+# from models.workout import WorkoutModel
 
 
 # create ExerciseModel that extends from Base and SQL class
@@ -17,7 +18,7 @@ class ExerciseModel(db.Model, BaseModel):
   #! id is a foreign key in the workouts table 
   name = db.Column(db.Text, nullable=False)
   #! target_area is relational so need to replace later
-  # target_area_id = db.Column(db.Integer, db.ForeignKey('target_areas.id'), nullable=False)
+  target_area_id = db.Column(db.Integer, db.ForeignKey('target_areas.id'), nullable=False)
   ## here's where I establish the relationship that workkouts have with exercises
   ## `tablename = db.relationship('TableItemModel', backpopulates='table name', cascade=all, delete*)`
   ## cascade decides what happens if my workout if the parent (exercise) is affected)
