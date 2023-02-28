@@ -2,6 +2,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
+from flask_cors import CORS
 
 
 # imports from files/directories that I made
@@ -12,6 +13,7 @@ from config.environment import db_URI
   ## we use double unders here so that flask takes the name of the file. (__name__)
   ## changes with each file that we use  
 app = Flask(__name__)
+CORS(app)
 
 
 # Tell SQLA where the database is
