@@ -72,6 +72,8 @@ with app.app_context():
       workout_exercise = WorkoutExerciseModel(workout_id=workout.id, exercise_id=exercise.id)
       workout_exercise.save()
 
+      
+
 
       reward = RewardModel(name="£10 Sephora voucher", description="£10 to use at Sephora, online and in stores.",fitcoin_cost=900)
       reward.save()

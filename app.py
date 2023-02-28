@@ -35,6 +35,7 @@ ma = Marshmallow(app)
 
 from controllers import exercises
 from controllers import target_areas
+from controllers import users
 
 
 # Register routers for each table made in the controllers above 
@@ -42,4 +43,5 @@ from controllers import target_areas
 
 app.register_blueprint(exercises.router, url_prefix='/api')
 app.register_blueprint(target_areas.router, url_prefix='/api')
+app.register_blueprint(users.router, url_prefix='/api')
 #? is it possible to add multiple arguements to each blueprint?

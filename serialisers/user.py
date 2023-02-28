@@ -5,6 +5,8 @@ from marshmallow import fields
 
 # imports from files/directories that I made
 from models.user import UserModel
+#! remember to import files referenced in nested fields, otherwise insomnia won't understand
+from serialisers.workout import WorkoutSchema
 
 # create serialiser (called schema in docs): python -> SQLA -> JSON
   ## nested field uses marshmallow and child serialiser to create a field within the parent.
