@@ -126,9 +126,9 @@ With this tool, I was able to identify that I needed to build 6 tables:
 
 ### Building the wireframes and prototype for the app:
 
-[figma](https://www.figma.com/file/lqf2CDo5TW8z6lTFoZWaWE/Project-4---Fitcoin?node-id=0%3A1&t=cGroF4Ocid5mtcAa-1)
+[Figma](https://www.figma.com/file/lqf2CDo5TW8z6lTFoZWaWE/Project-4---Fitcoin?node-id=0%3A1&t=cGroF4Ocid5mtcAa-1)
 
-![figma](./figma.png)
+![Figma](./figma.png)
 
 I used Figma to help me visualise what I wanted to build and how each screen would work. This was useful as I could then start to see how the models would relate to one another, how my frontend and backend should interact with one another and how complicated the project could be. I presented my wireframe and models to the instructional team and we decided that my MVP was definitely something I could build in the next 2 weeks. My Rewards system and any other features would be left to the end of the project.
 
