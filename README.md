@@ -1,4 +1,4 @@
-# Project 3: "Fitcoin"
+# Project 4: "Fitcoin"
 
 ## Description
 
